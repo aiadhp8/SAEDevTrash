@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Testestestest",
+            "request": "launch",
+            "mainClass": "Testestestest",
+            "projectName": "Chess Project_82fb695e"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

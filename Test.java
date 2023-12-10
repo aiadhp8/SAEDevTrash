@@ -16,78 +16,24 @@ public class Test {
       { 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R' },
     };
 
-    Affichage.afficherDamier(damier, joueur);
-    String coordonnees;
-    char pieceSelected;
-    boolean[][] deplacementsPossibles = new boolean[8][8];
     int test = 0;
+
     while (test < 10) {
-      do {
-        do {
-          coordonnees = selectionPiece();
-          pieceSelected =
-            damier[(
-                8 - 1 - ((coordonnees.charAt(1) - '0')) + 1
-              )][coordonnees.charAt(0) - 'A'];
-        } while (
-          (joueur && !Character.isUpperCase(pieceSelected)) ||
-          (!joueur && !Character.isLowerCase(pieceSelected))
-        );
-
-        switch (pieceSelected) {
-          case 'P':
-            deplacementsPossibles =
-              Deplacement.getDeplacementsPossiblesPion(damier, coordonnees);
-            break;
-          case 'N':
-            deplacementsPossibles =
-              Deplacement.getDeplacementsPossiblesKnight(damier, coordonnees);
-            break;
-          case 'B':
-            deplacementsPossibles =
-              Deplacement.getDeplacementsPossiblesBishop(damier, coordonnees);
-            break;
-          case 'R':
-            deplacementsPossibles =
-              Deplacement.getDeplacementsPossiblesRook(damier, coordonnees);
-            break;
-          case 'Q':
-            deplacementsPossibles =
-              Deplacement.getDeplacementsPossiblesQueen(damier, coordonnees);
-            break;
-          case 'K':
-            deplacementsPossibles =
-              Deplacement.getDeplacementsPossiblesKing(damier, coordonnees);
-            break;
-        }
-      } while (!pieceImmobile(deplacementsPossibles));
-
-      Affichage.afficherDamierDeplacement(
+      System.out.println("Au J" + ((joueur) ? "1" : "2") + " de jouer \n");
+      Affichage.afficherDamier(damier, joueur);
+      System.out.println();
+      if (joueur) TourJoueur1.J1Turn(damier, joueur); else TourJoueur2.J2Turn(
         damier,
-        deplacementsPossibles,
         joueur
       );
-
-      String coordonnesDeplacement = selectionDeplacement(
-        deplacementsPossibles
-      );
-      damier[(8 - 1 - ((coordonnees.charAt(1) - '0')) + 1)][coordonnees.charAt(
-          0
-        ) -
-        'A'] =
-        ' ';
-      damier[(
-          8 - 1 - ((coordonnesDeplacement.charAt(1) - '0')) + 1
-        )][coordonnesDeplacement.charAt(0) - 'A'] =
-        pieceSelected;
-
-      Affichage.afficherDamier(damier, joueur);
+      System.out.println();
+      changementDeJoueur(damier, joueur);
+      joueur = !joueur;
       test++;
     }
   }
 
-  public static boolean changementDeJoueur(char[][] echiquier, boolean joueur) {
-    joueur = !joueur;
+  public static void changementDeJoueur(char[][] echiquier, boolean joueur) {
     for (int i = 0; i < 8 / 2; i++) {
       for (int j = 0; j < 8; j++) {
         char temp = echiquier[i][j];
@@ -96,7 +42,6 @@ public class Test {
         echiquier[echiquier.length - 1 - i][echiquier.length - 1 - j] = temp;
       }
     }
-    return joueur;
   }
 
   public static boolean pieceImmobile(boolean[][] deplacementsPossibles) {
@@ -113,7 +58,7 @@ public class Test {
 
     String coordonnees;
     do {
-      System.out.println("Entrez coo");
+      System.out.print("Entrez coordonnées de la pièce à bouger : ");
       coordonnees = scanner.nextLine();
     } while (
       coordonnees.length() != 2 ||
@@ -125,12 +70,15 @@ public class Test {
     return coordonnees;
   }
 
-  public static String selectionDeplacement(boolean[][] deplacementsPossibles) {
+  public static String selectionDeplacementJ1(
+    boolean[][] deplacementsPossibles
+  ) {
     Scanner scanner = new Scanner(System.in);
     String coordonnees;
 
     do {
-      System.out.println("Entrez deplacement");
+      System.out.println();
+      System.out.print("Entrez deplacement : ");
       coordonnees = scanner.nextLine();
     } while (
       coordonnees.length() != 2 ||
@@ -141,6 +89,27 @@ public class Test {
       !deplacementsPossibles[(
           8 - 1 - ((coordonnees.charAt(1) - '0')) + 1
         )][coordonnees.charAt(0) - 'A']
+    );
+    return coordonnees;
+  }
+
+  public static String selectionDeplacementJ2(
+    boolean[][] deplacementsPossibles
+  ) {
+    Scanner scanner = new Scanner(System.in);
+    String coordonnees;
+
+    do {
+      System.out.print("Entrez deplacement : ");
+      coordonnees = scanner.nextLine();
+    } while (
+      coordonnees.length() != 2 ||
+      coordonnees.charAt(0) > 'H' ||
+      coordonnees.charAt(0) < 'A' ||
+      coordonnees.charAt(1) > '8' ||
+      coordonnees.charAt(1) < '1' ||
+      !deplacementsPossibles[(coordonnees.charAt(1) - '0') - 1][7 -
+        (coordonnees.charAt(0) - 'A')]
     );
     return coordonnees;
   }

@@ -1,11 +1,11 @@
-public class Deplacement {
+public class DeplacementJ2 {
 
-  public static boolean[][] getDeplacementsPossiblesKing(
+  public static boolean[][] getDeplacementsPossiblesKingJ2(
     char[][] damier,
     String coo
   ) {
-    int row = 8 - 1 - (coo.charAt(1) - '0') + 1;
-    int col = coo.charAt(0) - 'A';
+    int row = (coo.charAt(1) - '0') - 1;
+    int col = 7 - (coo.charAt(0) - 'A');
 
     boolean[][] deplacementsPossibles = new boolean[8][8];
 
@@ -28,12 +28,12 @@ public class Deplacement {
         if (
           damier[newRow][newCol] == ' ' ||
           (
-            Character.isLowerCase(damier[row][col]) &&
-            Character.isUpperCase(damier[newRow][newCol])
-          ) ||
-          (
             Character.isUpperCase(damier[row][col]) &&
             Character.isLowerCase(damier[newRow][newCol])
+          ) ||
+          (
+            Character.isLowerCase(damier[row][col]) &&
+            Character.isUpperCase(damier[newRow][newCol])
           )
         ) {
           deplacementsPossibles[newRow][newCol] = true;
@@ -44,12 +44,12 @@ public class Deplacement {
     return deplacementsPossibles;
   }
 
-  public static boolean[][] getDeplacementsPossiblesQueen(
+  public static boolean[][] getDeplacementsPossiblesQueenJ2(
     char[][] damier,
     String coo
   ) {
-    int row = 8 - 1 - (coo.charAt(1) - '0') + 1;
-    int col = coo.charAt(0) - 'A';
+    int row = (coo.charAt(1) - '0') - 1;
+    int col = 7 - (coo.charAt(0) - 'A');
 
     boolean[][] deplacementsPossibles = new boolean[8][8];
 
@@ -71,12 +71,12 @@ public class Deplacement {
           } else {
             if (
               (
-                Character.isLowerCase(damier[row][col]) &&
-                Character.isUpperCase(damier[newRow][newCol])
-              ) ||
-              (
                 Character.isUpperCase(damier[row][col]) &&
                 Character.isLowerCase(damier[newRow][newCol])
+              ) ||
+              (
+                Character.isLowerCase(damier[row][col]) &&
+                Character.isUpperCase(damier[newRow][newCol])
               )
             ) {
               deplacementsPossibles[newRow][newCol] = true;
@@ -103,12 +103,12 @@ public class Deplacement {
           } else {
             if (
               (
-                Character.isLowerCase(damier[row][col]) &&
-                Character.isUpperCase(damier[newRow][newCol])
-              ) ||
-              (
                 Character.isUpperCase(damier[row][col]) &&
                 Character.isLowerCase(damier[newRow][newCol])
+              ) ||
+              (
+                Character.isLowerCase(damier[row][col]) &&
+                Character.isUpperCase(damier[newRow][newCol])
               )
             ) {
               deplacementsPossibles[newRow][newCol] = true;
@@ -124,12 +124,12 @@ public class Deplacement {
     return deplacementsPossibles;
   }
 
-  public static boolean[][] getDeplacementsPossiblesRook(
+  public static boolean[][] getDeplacementsPossiblesRookJ2(
     char[][] damier,
     String coo
   ) {
-    int row = 8 - 1 - (coo.charAt(1) - '0') + 1;
-    int col = coo.charAt(0) - 'A';
+    int row = (coo.charAt(1) - '0') - 1;
+    int col = 7 - (coo.charAt(0) - 'A');
 
     boolean[][] deplacementsPossibles = new boolean[8][8];
 
@@ -149,12 +149,12 @@ public class Deplacement {
           } else {
             if (
               (
-                Character.isLowerCase(damier[row][col]) &&
-                Character.isUpperCase(damier[newRow][newCol])
-              ) ||
-              (
                 Character.isUpperCase(damier[row][col]) &&
                 Character.isLowerCase(damier[newRow][newCol])
+              ) ||
+              (
+                Character.isLowerCase(damier[row][col]) &&
+                Character.isUpperCase(damier[newRow][newCol])
               )
             ) {
               deplacementsPossibles[newRow][newCol] = true;
@@ -170,12 +170,12 @@ public class Deplacement {
     return deplacementsPossibles;
   }
 
-  public static boolean[][] getDeplacementsPossiblesBishop(
+  public static boolean[][] getDeplacementsPossiblesBishopJ2(
     char[][] damier,
     String coo
   ) {
-    int row = 8 - 1 - (coo.charAt(1) - '0') + 1;
-    int col = coo.charAt(0) - 'A';
+    int row = (coo.charAt(1) - '0') - 1;
+    int col = 7 - (coo.charAt(0) - 'A');
 
     boolean[][] deplacementsPossibles = new boolean[8][8];
 
@@ -195,12 +195,12 @@ public class Deplacement {
           } else {
             if (
               (
-                Character.isLowerCase(damier[row][col]) &&
-                Character.isUpperCase(damier[newRow][newCol])
-              ) ||
-              (
                 Character.isUpperCase(damier[row][col]) &&
                 Character.isLowerCase(damier[newRow][newCol])
+              ) ||
+              (
+                Character.isLowerCase(damier[row][col]) &&
+                Character.isUpperCase(damier[newRow][newCol])
               )
             ) {
               deplacementsPossibles[newRow][newCol] = true;
@@ -215,12 +215,12 @@ public class Deplacement {
     return deplacementsPossibles;
   }
 
-  public static boolean[][] getDeplacementsPossiblesKnight(
+  public static boolean[][] getDeplacementsPossiblesKnightJ2(
     char[][] damier,
     String coo
   ) {
-    int row = 8 - 1 - (coo.charAt(1) - '0') + 1;
-    int col = coo.charAt(0) - 'A';
+    int row = (coo.charAt(1) - '0') - 1;
+    int col = 7 - (coo.charAt(0) - 'A');
 
     boolean[][] deplacementsPossibles = new boolean[8][8];
 
@@ -243,12 +243,12 @@ public class Deplacement {
         if (
           damier[newRow][newCol] == ' ' ||
           (
-            Character.isLowerCase(damier[row][col]) &&
-            Character.isUpperCase(damier[newRow][newCol])
-          ) ||
-          (
             Character.isUpperCase(damier[row][col]) &&
             Character.isLowerCase(damier[newRow][newCol])
+          ) ||
+          (
+            Character.isLowerCase(damier[row][col]) &&
+            Character.isUpperCase(damier[newRow][newCol])
           )
         ) {
           deplacementsPossibles[newRow][newCol] = true;
@@ -259,37 +259,35 @@ public class Deplacement {
     return deplacementsPossibles;
   }
 
-  public static boolean[][] getDeplacementsPossiblesPion(
+  public static boolean[][] getDeplacementsPossiblesPionJ2(
     char[][] damier,
-    String coordonnees
+    String coo
   ) {
-    int row = 8 - 1 - (coordonnees.charAt(1) - '0') + 1;
-    int col = coordonnees.charAt(0) - 'A';
+    int row = (coo.charAt(1) - '0') - 1;
+    int col = 7 - (coo.charAt(0) - 'A');
 
     boolean[][] deplacementsPossibles = new boolean[8][8];
 
-    if (damier[row][col] == 'P') {
-      if (row - 1 >= 0 && damier[row - 1][col] == ' ') {
-        deplacementsPossibles[row - 1][col] = true;
-        if (row == 6 && damier[row - 2][col] == ' ') {
-          deplacementsPossibles[row - 2][col] = true;
-        }
+    if (row - 1 >= 0 && damier[row - 1][col] == ' ') {
+      deplacementsPossibles[row - 1][col] = true;
+      if (row == 6 && damier[row - 2][col] == ' ') {
+        deplacementsPossibles[row - 2][col] = true;
       }
+    }
 
-      if (
-        row - 1 >= 0 &&
-        col - 1 >= 0 &&
-        Character.isLowerCase(damier[row - 1][col - 1])
-      ) {
-        deplacementsPossibles[row - 1][col - 1] = true;
-      }
-      if (
-        row - 1 >= 0 &&
-        col + 1 < 8 &&
-        Character.isLowerCase(damier[row - 1][col + 1])
-      ) {
-        deplacementsPossibles[row - 1][col + 1] = true;
-      }
+    if (
+      row - 1 >= 0 &&
+      col - 1 >= 0 &&
+      Character.isUpperCase(damier[row - 1][col - 1])
+    ) {
+      deplacementsPossibles[row - 1][col - 1] = true;
+    }
+    if (
+      row - 1 >= 0 &&
+      col + 1 < 8 &&
+      Character.isUpperCase(damier[row - 1][col + 1])
+    ) {
+      deplacementsPossibles[row - 1][col + 1] = true;
     }
     return deplacementsPossibles;
   }
