@@ -306,8 +306,8 @@ public class Deplacement {
     );
     boolean[][] echec = getCasesEchecs(echiquier, isJ1);
 
-    if (!deplacementPieceRoque[(isJ1 ? 0 : 1)][0]) {
-      if (!deplacementPieceRoque[(isJ1 ? 0 : 1)][1]) {
+    if (!deplacementPieceRoque[(isJ1 ? 1 : 0)][0]) {
+      if (!deplacementPieceRoque[(isJ1 ? 1 : 0)][1]) {
         boolean roquePossible = true;
         for (int x = position[1] - 1; x > 0; x--) {
           roquePossible &= !echec[position[0]][x];
@@ -315,7 +315,7 @@ public class Deplacement {
         }
         deplacements[position[0]][0] = roquePossible;
       }
-      if (!deplacementPieceRoque[(isJ1 ? 0 : 1)][2]) {
+      if (!deplacementPieceRoque[(isJ1 ? 1 : 0)][2]) {
         boolean roquePossible = true;
         for (int x = position[1] + 1; x < 7; x++) {
           roquePossible &= !echec[position[0]][x];
@@ -456,61 +456,56 @@ public class Deplacement {
    * Calcule et retourne les déplacements possibles pour un pion sur un échiquier en gèrant les déplacements normaux,
    * les captures diagonales, la prise en passant et l'avancement initial de deux cases des pions.
    */
-  private static boolean[][] getDeplacementsPion(
-    char[][] echiquier,
-    int[] position,
-    boolean isJ1
-  ) {
+  private static boolean[][] getDeplacementsPion(char[][] echiquier, int[] position, boolean isJ1) {
     boolean[][] deplacements = new boolean[8][8];
 
     int[] avance = { position[0] + (isJ1 ? -1 : 1), position[1] };
-    if (
-      position[0] != (isJ1 ? 0 : 7) && echiquier[avance[0]][avance[1]] == ' '
-    ) {
+    if (position[0] != (isJ1 ? 0 : 7) && echiquier[avance[0]][avance[1]] == ' ') {
       deplacements[avance[0]][avance[1]] = true;
     }
 
     if (position[0] == (isJ1 ? 6 : 1)) {
       int[] avanceDouble = { position[0] + (isJ1 ? -2 : 2), position[1] };
-      if (
-        echiquier[avanceDouble[0]][avanceDouble[1]] == ' ' &&
-        echiquier[avance[0]][avance[1]] == ' '
-      ) {
+      if (echiquier[avanceDouble[0]][avanceDouble[1]] == ' ' && echiquier[avance[0]][avance[1]] == ' ') {
         deplacements[avanceDouble[0]][avanceDouble[1]] = true;
       }
     }
 
     if (position[0] != (isJ1 ? 0 : 7)) {
-      int[][] diagonals = {
-        { position[0] + (isJ1 ? -1 : 1), position[1] - 1 },
-        { position[0] + (isJ1 ? -1 : 1), position[1] + 1 },
-      };
+      int[][] diagonals = { { position[0] + (isJ1 ? -1 : 1), position[1] - 1 }, { position[0] + (isJ1 ? -1 : 1), position[1] + 1 } };
 
       for (int[] diagonal : diagonals) {
-        if (
-          diagonal[0] >= 0 &&
-          diagonal[0] < 8 &&
-          diagonal[1] >= 0 &&
-          diagonal[1] < 8
-        ) {
-          if (
-            echiquier[diagonal[0]][diagonal[1]] != ' ' &&
-            isJ1 ^
-            Character.isUpperCase(echiquier[diagonal[0]][diagonal[1]])
-          ) {
+        if (diagonal[0] >= 0 && diagonal[0] < 8 && diagonal[1] >= 0 && diagonal[1] < 8) {
+          if (echiquier[diagonal[0]][diagonal[1]] != ' ' &&
+                  isJ1 ^ Character.isUpperCase(echiquier[diagonal[0]][diagonal[1]])) {
             deplacements[diagonal[0]][diagonal[1]] = true;
-          } else if (
-            position[0] == (isJ1 ? 4 : 3) &&
-            deplacementDeuxCases[(isJ1 ? 0 : 1)][diagonal[1]]
-          ) {
+          } else if (position[0] == (isJ1 ? 4 : 3) && deplacementDeuxCases[(isJ1 ? 0 : 1)][diagonal[1]]) {
             deplacements[diagonal[0]][diagonal[1]] = true;
           }
         }
       }
     }
 
+    // Check en passant
+    int[] enPassantLeft = { position[0], position[1] - 1 };
+    int[] enPassantRight = { position[0], position[1] + 1 };
+
+    if (position[0] == (isJ1 ? 3 : 4)) {
+      if (enPassantLeft[1] >= 0 && echiquier[enPassantLeft[0]][enPassantLeft[1]] == (isJ1 ? 'p' : 'P') &&
+              deplacementDeuxCases[(isJ1 ? 0 : 1)][enPassantLeft[1]]) {
+        deplacements[enPassantLeft[0] + (isJ1 ? -1 : 1)][enPassantLeft[1]] = true;
+      }
+
+      if (enPassantRight[1] < 8 && echiquier[enPassantRight[0]][enPassantRight[1]] == (isJ1 ? 'p' : 'P') &&
+              deplacementDeuxCases[(isJ1 ? 0 : 1)][enPassantRight[1]]) {
+        deplacements[enPassantRight[0] + (isJ1 ? -1 : 1)][enPassantRight[1]] = true;
+      }
+    }
+
     return deplacements;
   }
+
+
 
   /*
    * Calcule et retourne les déplacements possibles pour un pion en termes de captures diagonales en gèrant les captures diagonales d'un pion,

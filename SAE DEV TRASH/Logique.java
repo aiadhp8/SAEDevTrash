@@ -77,9 +77,9 @@ public class Logique {
 	* Réinitialise toutes les valeurs d'un tableau bidimensionnel de booléens à 'false'.
 	*/
 	public static void flushBoolean(boolean[][] tab) {
-		for (int i = 0; i < tab.length; i++) {
-			Arrays.fill(tab[i], false);
-		}
+        for (boolean[] booleans : tab) {
+            Arrays.fill(booleans, false);
+        }
 	}
 
 	/*
@@ -198,17 +198,17 @@ public class Logique {
 		}
 
 		if (!Deplacement.deplacementPieceRoque[1][0] && (!Deplacement.deplacementPieceRoque[1][1] || !Deplacement.deplacementPieceRoque[1][2])) {
-			if (!Deplacement.deplacementPieceRoque[1][2]) {
+			if (!Deplacement.deplacementPieceRoque[1][1]) {
 				roque.append('k');
 			}
-			if (!Deplacement.deplacementPieceRoque[1][1]) {
+			if (!Deplacement.deplacementPieceRoque[1][2]) {
 				roque.append('q');
 			}
 		}
 
-		if (roque.length() == 0) FEN.append('-');
+		if (roque.isEmpty()) FEN.append('-');
 		else FEN.append(roque);
-		FEN.append(' ');
+
 
 		StringBuilder enPassant = new StringBuilder(4);
 		for (int j = 0; j < 2; j++) {
@@ -217,7 +217,7 @@ public class Logique {
 			}
 		}
 
-		if (enPassant.length() == 0) FEN.append('-');
+		if (enPassant.isEmpty()) FEN.append('-');
 		else FEN.append(enPassant);
 		FEN.append(' ');
 
